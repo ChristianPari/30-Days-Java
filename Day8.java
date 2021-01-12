@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Day8 {
   /*
@@ -8,32 +7,24 @@ public class Day8 {
   For each name queried, print the associated entry from your phone book on a new line in the form name=phoneNumber;
   if an entry name for is not found, print Not found instead.
    */
+
+  final static int NAME = 0;
+  final static int PHONE = 1;
+
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    int numOfContacts = sc.nextInt();
-    sc.nextLine();
-    HashMap<String, String> phoneBook = new HashMap<>();
-
-    int counter = 0;
-    while (counter < numOfContacts) {
-      String[] contact = sc.nextLine().split(" ");
-      phoneBook.put(contact[0], contact[1]);
-      counter++;
+    Map<String, Integer> phonebook = new HashMap<>();
+    int n = sc.nextInt();
+    for (int i = 0; i < n; i++) {
+      String name = sc.next();
+      int phone = sc.nextInt();
+      phonebook.put(name, phone);
     }
-
-    counter = 0;
-    String[] searcher = new String[numOfContacts];
-    while (counter < numOfContacts) {
-      searcher[counter] = sc.nextLine();
-      counter++;
+    while (sc.hasNext()) {
+      String name = sc.next();
+      Integer phone = phonebook.get(name);
+      System.out.println(phone != null ? name + "=" + phone : "Not found");
     }
-
-    for (String name : searcher) {
-      if (phoneBook.containsKey(name)) {
-        System.out.println(name + "=" + phoneBook.get(name));
-      } else {
-        System.out.println("Not found");
-      }
-    }
+    sc.close();
   }
 }
